@@ -8,8 +8,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import com.heraizen.hibernatecore.domain.Department;
+import com.heraizen.hibernatecore.domain.Batch;
+import com.heraizen.hibernatecore.domain.Passport;
+import com.heraizen.hibernatecore.domain.Payment;
 import com.heraizen.hibernatecore.domain.Student;
+import com.heraizen.hibernatecore.domain.Trainer;
+
+
 
 public final class HibernateUtil {
 
@@ -28,7 +33,7 @@ public final class HibernateUtil {
 						Configuration configuration = new Configuration();
 						Properties settings = new Properties();
 						settings.put(Environment.DRIVER, "org.postgresql.Driver");
-						settings.put(Environment.URL, "jdbc:postgresql://localhost:5432/heraizen");
+						settings.put(Environment.URL, "jdbc:postgresql://localhost:5432/sample");
 						settings.put(Environment.USER, "lakshman");
 						settings.put(Environment.PASS, "lakshman@123");
 
@@ -38,12 +43,15 @@ public final class HibernateUtil {
 
 						settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
-						settings.put(Environment.HBM2DDL_AUTO, "update");
+						settings.put(Environment.HBM2DDL_AUTO, "create");
 
 						configuration.setProperties(settings);
 					
-			
-						configuration.addAnnotatedClass(Department.class).addAnnotatedClass(Student.class);
+						configuration.addAnnotatedClass(Student.class);
+						configuration.addAnnotatedClass(Passport.class);
+						configuration.addAnnotatedClass(Trainer.class);
+						configuration.addAnnotatedClass(Batch.class);
+						configuration.addAnnotatedClass(Payment.class);
 						
 						ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 								.applySettings(configuration.getProperties()).build();
